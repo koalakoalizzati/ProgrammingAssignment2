@@ -1,0 +1,32 @@
+## Put comments here that give an overall description of what your
+## functions do
+
+##Assignment: Caching the Inverse of a Matrix
+
+##Function that creates a special "matrix" object that can cache its inverse
+
+makeCacheMatrix <- function(m = matrix()) {
+        inv <- NULL
+        set <- function(y) {
+                m <<- y
+                inv <<- NULL
+        }
+        get <- function() m
+        setinverse <- function(solve) inv <<- solve
+        getinverse <- function() inv
+        list(set = set, get = get,
+             setinverse = setinverse,
+             getinverse = getinverse)
+}
+
+##Function that computes the inverse of the special "matrix"
+cacheSolve <- function(m, ...) {
+	    inv <- m$getinverse()
+	    if(!is.null(inv)) {
+                return(inv)
+        }
+        data <- m$get()
+        inv <- solve(data, ...)
+        m$setinverse(inv)
+        inv
+}
